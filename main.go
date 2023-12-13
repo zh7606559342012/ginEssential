@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
 	"math/rand"
@@ -12,9 +13,9 @@ import (
 
 type User struct {
 	gorm.Model
-	Name string `gorm:"type:varchar(20);not null"`
+	Name      string `gorm:"type:varchar(20);not null"`
 	Telephone string `gorm:"type:varchar(110);not null;unique"`
-	Password string `gorm:"type:varchar(255);not null"`
+	Password  string `gorm:"type:varchar(255);not null"`
 }
 
 func main() {
@@ -46,11 +47,11 @@ func main() {
 		}
 		//创建用户
 		newUser := User{
-			Name: name,
+			Name:      name,
 			Telephone: telephone,
-			Password: password,
+			Password:  password,
 		}
-
+		db.Create(&newUser)
 
 		//返回结果
 		ctx.JSON(200, gin.H{
@@ -82,7 +83,7 @@ func RandomString(n int) string {
 
 func InitDB() *gorm.DB {
 	driverName := "mysql"
-	host := "localhost"
+	host := "47.76.177.17"
 	port := "3306"
 	database := "ginessential"
 	username := "root"
@@ -99,5 +100,6 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		panic("failed to connect database err:" + err.Error())
 	}
+	db.AutoMigrate(&User{})
 	return db
 }
