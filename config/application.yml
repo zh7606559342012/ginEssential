@@ -1,0 +1,8 @@
+datasource:
+  driverName: mysql
+  host: 47.76.177.17
+  port: 3306
+  database: ginessential
+  username: root
+  password: root
+  charset: utf8
