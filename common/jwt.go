@@ -15,14 +15,14 @@ type Claims struct {
 }
 
 func ReleaseToken(user model.User) (string, error) {
-	expirationTime := time.Now().Add(7*24*time.Hour)
+	expirationTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &Claims{
 		UserId: user.ID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
-			IssuedAt: time.Now().Unix(),
-			Issuer: "oceanlearn.tech",
-			Subject: "user token",
+			IssuedAt:  time.Now().Unix(),
+			Issuer:    "oceanlearn.tech",
+			Subject:   "user token",
 		},
 	}
 
@@ -36,4 +36,14 @@ func ReleaseToken(user model.User) (string, error) {
 	}
 
 	return tokenString, nil
+}
+
+func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
+	claims := &Claims{}
+
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(toekn *jwt.Token) (i interface{}, err error) {
+		return jwtKey, nil
+	})
+
+	return token, claims, err
 }
