@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-    <b-row>
+    <b-row class="mt-5">
       <b-col
         md="8"
         offset-md="2"
@@ -9,7 +9,7 @@
       >
         <b-card title="注册">
           <b-form>
-            <b-form-group description="We'll never share your email with anyone else.">
+            <b-form-group label="姓名">
               <b-form-input
                 v-model="user.name"
                 type="text"
@@ -17,7 +17,7 @@
                 required
               ></b-form-input>
             </b-form-group>
-            <b-form-group description="We'll never share your email with anyone else.">
+            <b-form-group label="手机号">
               <b-form-input
                 v-model="user.telephone"
                 type="number"
@@ -25,7 +25,7 @@
                 required
               ></b-form-input>
             </b-form-group>
-            <b-form-group description="We'll never share your email with anyone else.">
+            <b-form-group label="密码">
               <b-form-input
                 v-model="user.password"
                 type="password"
@@ -33,6 +33,13 @@
                 required
               ></b-form-input>
             </b-form-group>
+            <b-button
+              variant="outline-primary"
+              block
+              @click="register"
+            >
+              注册
+            </b-button>
           </b-form>
         </b-card>
       </b-col>
@@ -49,6 +56,11 @@ export default {
         password: '',
       },
     };
+  },
+  methods: {
+    register() {
+      console.log('register');
+    },
   },
 };
 </script>
