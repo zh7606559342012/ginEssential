@@ -24,6 +24,13 @@
                 placeholder="输入手机号"
                 required
               ></b-form-input>
+              <b-form-text
+                id="password-help-block"
+                text-variant="danger"
+                v-if="showTelephoneValidate"
+              >
+                手机号必须为11位
+              </b-form-text>
             </b-form-group>
             <b-form-group label="密码">
               <b-form-input
@@ -55,10 +62,15 @@ export default {
         telephone: '',
         password: '',
       },
+      showTelephoneValidate: false,
     };
   },
   methods: {
     register() {
+      if (this.user.telephone.length !== 11) {
+        this.showTelephoneValidate = true;
+        return;
+      }
       console.log('register');
     },
   },
