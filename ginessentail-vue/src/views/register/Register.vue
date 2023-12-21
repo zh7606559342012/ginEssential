@@ -11,7 +11,7 @@
           <b-form>
             <b-form-group label="姓名">
               <b-form-input
-                v-model="user.name"
+                v-model="$v.user.name.$model"
                 type="text"
                 placeholder="输入您的名称（选填）"
                 required
@@ -19,7 +19,7 @@
             </b-form-group>
             <b-form-group label="手机号">
               <b-form-input
-                v-model="user.telephone"
+                v-model="$v.user.telephone.$model"
                 type="number"
                 placeholder="输入手机号"
                 :state="validation"
@@ -33,7 +33,7 @@
             </b-form-group>
             <b-form-group label="密码">
               <b-form-input
-                v-model="user.password"
+                v-model="$v.user.password.model"
                 type="password"
                 placeholder="输入密码"
                 required
@@ -53,6 +53,8 @@
   </div>
 </template>
 <script>
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+
 export default {
   data() {
     return {
@@ -64,6 +66,18 @@ export default {
       validation: null,
     };
   },
+  validations: {
+    user: {
+      name: {},
+      telephone: {
+        required,
+        minLength: minLength(11),
+        maxLength: maxLength(11),
+      },
+      password: {},
+    },
+  },
+
   methods: {
     register() {
       if (this.user.telephone.length !== 11) {
