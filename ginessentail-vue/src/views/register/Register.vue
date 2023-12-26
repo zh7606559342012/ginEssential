@@ -92,7 +92,7 @@ export default {
       if (this.$v.user.$anyError) {
         return;
       }
-      const api = 'http://localhost:8080/api/auth/register';
+      const api = 'http://localhost:1016/api/auth/register';
       this.axios.post(api, { ...this.user }).then((res) => {
         console.log(res.data);
       }).catch((err) => {
