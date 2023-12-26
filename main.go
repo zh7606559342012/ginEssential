@@ -15,6 +15,7 @@ func main() {
 	r := gin.Default()
 	r = CollectRoute(r)
 
+	//r.Run(":" + viper.GetString("server.port"))
 	r.Run()
 }
 
