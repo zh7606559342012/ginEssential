@@ -95,8 +95,14 @@ export default {
       const api = 'http://localhost:1016/api/auth/register';
       this.axios.post(api, { ...this.user }).then((res) => {
         console.log(res.data);
+        localStorage.setItem('token', res.data.data.token);
+        this.$router.replace({ name: 'home' });
       }).catch((err) => {
-        console.log('err:', err.response.data.msg);
+        this.$bvToast.toast(err.response.data.msg, {
+          title: '数据验证错误',
+          variant: 'danger',
+          solid: true,
+        });
       });
       console.log('register');
     },
