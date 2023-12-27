@@ -56,6 +56,8 @@
 import { required, minLength } from 'vuelidate/lib/validators';
 
 import customValidator from '../../helper/validator';
+import storageService from '../../service/storageService';
+import userService from '../../service/userService';
 
 export default {
   data() {
@@ -92,10 +94,8 @@ export default {
       if (this.$v.user.$anyError) {
         return;
       }
-      const api = 'http://localhost:1016/api/auth/register';
-      this.axios.post(api, { ...this.user }).then((res) => {
-        console.log(res.data);
-        localStorage.setItem('token', res.data.data.token);
+      userService.register(this.user).then((res) => {
+        storageService.set(storageService.USER_TOKEN, res.data.data.token);
         this.$router.replace({ name: 'home' });
       }).catch((err) => {
         this.$bvToast.toast(err.response.data.msg, {
