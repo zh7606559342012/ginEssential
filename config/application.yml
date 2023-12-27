@@ -2,7 +2,7 @@ server:
   port: 1016
 datasource:
   driverName: mysql
-  host: 47.76.177.17
+  host: 192.168.3.12
   port: 3306
   database: ginessential
   username: root
