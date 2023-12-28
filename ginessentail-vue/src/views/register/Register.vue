@@ -97,7 +97,7 @@ export default {
       userService.register(this.user).then((res) => {
         storageService.set(storageService.USER_TOKEN, res.data.data.token);
         userService.info().then((response) => {
-          storageService.set(storageService.USER_INFO, response.data.data.user);
+          storageService.set(storageService.USER_INFO, JSON.stringify(response.data.data.user));
           this.$router.replace({ name: 'home' });
         });
       }).catch((err) => {
