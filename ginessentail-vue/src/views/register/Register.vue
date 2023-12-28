@@ -96,7 +96,10 @@ export default {
       }
       userService.register(this.user).then((res) => {
         storageService.set(storageService.USER_TOKEN, res.data.data.token);
-        this.$router.replace({ name: 'home' });
+        userService.info().then((response) => {
+          storageService.set(storageService.USER_INFO, response.data.data.user);
+          this.$router.replace({ name: 'home' });
+        });
       }).catch((err) => {
         this.$bvToast.toast(err.response.data.msg, {
           title: '数据验证错误',

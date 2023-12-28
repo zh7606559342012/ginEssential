@@ -26,13 +26,13 @@
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown> -->
 
-        <!-- <b-nav-item-dropdown right>
+        <b-nav-item-dropdown right>
           <template #button-content>
             <em>User</em>
           </template>
           <b-dropdown-item href="#">Profile</b-dropdown-item>
           <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown> -->
+        </b-nav-item-dropdown>
 
       <b-navbar-nav>
         <b-nav-item @click="$router.replace({name: 'login'})">登录</b-nav-item>
@@ -47,7 +47,11 @@
 </template>
 <script>
 export default {
+  computed: {
+    userInfo() {
 
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
