@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import userModule from './store/module/user';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  strict: process.env.MODE_ENV !== 'production',
   state: {
 
   },
@@ -12,5 +14,8 @@ export default new Vuex.Store({
   },
   actions: {
 
+  },
+  modules: {
+    userModule,
   },
 });

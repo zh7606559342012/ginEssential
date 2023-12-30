@@ -26,7 +26,8 @@
           <b-dropdown-item href="#">FA</b-dropdown-item>
         </b-nav-item-dropdown> -->
 
-        <b-nav-item-dropdown right v-if="userInfo">
+        <!-- <b-nav-item-dropdown right v-if="userInfo"> -->
+          <b-nav-item-dropdown>
           <template #button-content>
             <em>{{userInfo.name}}</em>
           </template>
@@ -34,9 +35,12 @@
           <b-dropdown-item href="#">登录</b-dropdown-item>
         </b-nav-item-dropdown>
 
-      <div v-if="!userInfo">
-        <b-nav-item v-if="$route.name != 'login'" @click="$router.replace({name: 'login'})">登录</b-nav-item>
-        <b-nav-item v-if="$route.name != 'register'" @click="$router.replace({name: 'register'})">注册</b-nav-item>
+      <!-- <div v-if="!userInfo"> -->
+        <div>
+        <b-nav-item v-if="$route.name != 'login'"
+        @click="$router.replace({name: 'login'})">登录</b-nav-item>
+        <b-nav-item v-if="$route.name != 'register'"
+        @click="$router.replace({name: 'register'})">注册</b-nav-item>
       </div>
 
       </b-navbar-nav>
@@ -46,12 +50,11 @@
 </div>
 </template>
 <script>
-import storageService from '../../service/storageService';
 
 export default {
   computed: {
     userInfo() {
-      return JSON.parse(storageService.get(storageService.USER_INFO));
+      return this.$store.state.userModule.userInfo;
     },
   },
 };
