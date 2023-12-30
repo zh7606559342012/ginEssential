@@ -46,7 +46,7 @@
 </template>
 <script>
 import { required, minLength } from 'vuelidate/lib/validators';
-
+import { mapActions } from 'vuex';
 import customValidator from '../../helper/validator';
 
 export default {
@@ -73,12 +73,26 @@ export default {
   },
 
   methods: {
+    ...mapActions('userModule', { userLogin: 'login' }),
     validateState(name) {
       const { $dirty, $error } = this.$v.user[name];
       return $dirty ? !$error : null;
     },
     login() {
-      console.log('login');
+      this.$v.user.$touch();
+      if (this.$v.user.$anyError) {
+        return;
+      }
+      this.userLogin(this.user).then(() => {
+        this.$router.replace({ name: 'home' });
+      }).catch((err) => {
+        this.$bvToast.toast(err.response.data.msg, {
+          title: '数据验证错误',
+          variant: 'danger',
+          solid: true,
+        });
+      });
+      console.log('register');
     },
   },
 };
