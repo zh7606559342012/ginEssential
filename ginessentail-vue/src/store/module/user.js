@@ -1,4 +1,5 @@
 import storageService from '../../service/storageService';
+import userService from '../../service/userService';
 
 const userModule = {
   namespaced: true,
@@ -12,8 +13,24 @@ const userModule = {
       state.token = token;
     },
     SET_USERINFO(state, userInfo) {
-      storageService.set(storageService.USER_TOKEN, JSON.stringify(userInfo));
+      storageService.set(storageService.USER_INFO, JSON.stringify(userInfo));
       state.userInfo = userInfo;
+    },
+  },
+
+  actions: {
+    register(context, { name, telephone, password }) {
+      return new Promise((resolve, reject) => {
+        userService.register({ name, telephone, password }).then((res) => {
+          context.commit('SET_TOKEN', res.data.data.token);
+          return userService.info();
+        }).then((res) => {
+          context.commit('SET_USERINFO', res.data.data.user);
+          resolve(res);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
     },
   },
 };
