@@ -50,13 +50,12 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 
 export default {
-  computed: {
-    userInfo() {
-      return this.$store.state.userModule.userInfo;
-    },
-  },
+  computed: mapState({
+    userInfo: state => state.userModule.userInfo,
+  }),
 };
 </script>
 <style lang="scss" scoped>

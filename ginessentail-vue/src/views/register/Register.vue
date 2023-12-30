@@ -54,6 +54,7 @@
 </template>
 <script>
 import { required, minLength } from 'vuelidate/lib/validators';
+import { mapMutations } from 'vuex';
 
 import customValidator from '../../helper/validator';
 import userService from '../../service/userService';
@@ -84,6 +85,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('userModule', ['SET_TOKEN', 'SET_USERINFO']),
     validateState(name) {
       const { $dirty, $error } = this.$v.user[name];
       return $dirty ? !$error : null;
@@ -94,10 +96,10 @@ export default {
         return;
       }
       userService.register(this.user).then((res) => {
-        this.$store.commit('userModule/SET_TOKEN', res.data.data.token);
+        this.SET_TOKEN(res.data.data.token);
         return userService.info();
       }).then((response) => {
-        this.$store.commit('userModule/SET_USERINFO', response.data.data.user);
+        this.SET_USERINFO(response.data.data.user);
         this.$router.replace({ name: 'home' });
       }).catch((err) => {
         this.$bvToast.toast(err.response.data.msg, {
